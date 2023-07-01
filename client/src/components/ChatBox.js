@@ -1,8 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { getUser } from '../services/user.service'
+import { getMessages } from '../services/message.service'
+import { format } from 'timeago.js'
+import InputEmoji from 'react-input-emoji'
+import { addMessage } from '../services/message.service'
 
-export const ChatBox = ({ chat, currentUser }) => {
+export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     const [userData, setUserData] = useState(null)
+    const [messages, setMessages] = useState([])
+    const [newMessage, setnewMessage] = useState('')
+    const scroll = useRef()
+
+    useEffect(() => {
+        if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
+            setMessages([...messages, receiveMessage])
+        }
+    }, [receiveMessage])
 
     const getUserData = () => {
         const userId = chat?.members?.find((id) => id !== currentUser)
@@ -16,27 +29,97 @@ export const ChatBox = ({ chat, currentUser }) => {
             })
     }
 
+    const getMessagesData = () => {
+        getMessages(chat._id)
+            .then((response) => {
+                console.log(response.data.message)
+                setMessages(response.data.message)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
     useEffect(() => {
         if (chat !== null) getUserData()
     }, [chat, currentUser])
 
+    useEffect(() => {
+        if (chat !== null) getMessagesData()
+        console.log(chat)
+    }, [chat])
+
+    const handleChange = (text) => {
+        setnewMessage(text)
+    }
+
+    const handleSend = (e) => {
+        e.preventDefault()
+        const message = {
+            senderId: currentUser,
+            text: newMessage,
+            chatId: chat._id,
+        }
+        //send message to database
+        addMessage(message)
+            .then((response) => {
+                setMessages([...messages, response.data.message])
+                setnewMessage('')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+        //send message to socket server
+        const receiverId = chat.members.find((id) => id !== currentUser)
+        setSendMessage({ ...message, receiverId })
+    }
+
+    // Scroll siempre baja al ultimo mensaje
+    useEffect(() => {
+        scroll.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [messages])
+
     return (
         <>
             <div className="Chatbox-container">
-                <>
-                    <div className="chat-header">
-                        <div className="follower">
-                            <div>
-                                <div className="online-dot">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} />
-                                    <div className="name" style={{ fontSize: '0.8rem' }}>
-                                        <span>{userData?.nickname} </span>
+                {chat ? (
+                    <>
+                        <div className="chat-header">
+                            <div className="follower">
+                                <div>
+                                    <div className="online-dot">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} />
+                                        <div className="name" style={{ fontSize: '0.8rem' }}>
+                                            <span>{userData?.nickname} </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <hr style={{ width: '85%', border: '0.1px solid #ececec' }} />
                         </div>
-                    </div>
-                </>
+                        {/* Chatbox Messages */}
+                        {messages.map((message) => (
+                            <>
+                                <div ref={scroll}></div>
+                                <div className={message.senderId === currentUser ? 'message own' : 'message'}>
+                                    <span>{message.text}</span>
+                                    {/* <div>
+                                        <span>{format(message.createdAt)}</span>
+                                    </div> */}
+                                </div>
+                            </>
+                        ))}
+                        {/* chat sender*/}
+                        <div className="chat-sender">
+                            {/* <div>+</div> */}
+                            <InputEmoji value={newMessage} onChange={handleChange} />
+                            <button onClick={handleSend}>Enviar</button>
+                        </div>
+                    </>
+                ) : (
+                    <span className="chatbox-empty-message">Tap on Chat to start Conversation</span>
+                )}
             </div>
         </>
     )

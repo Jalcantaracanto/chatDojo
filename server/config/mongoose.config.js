@@ -1,8 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
-mongoose.connect('mongodb://localhost/chatdb', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log('The connection to the database was successful'))
-    .catch((err) => console.log('Something went wrong with the connection to database', err))
+mongoose
+    .connect("mongodb://127.0.0.1/chatDojodb", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log("Se establecio conexión con la base de datos correctamente"))
+    .catch((err) => console.log("Algo salio mal con la conexión con la base de datos", err))

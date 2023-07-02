@@ -8,6 +8,13 @@ import { logout } from '../services/user.service'
 import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
+import { Paper } from '@mui/material'
+
+
+
+// MUI 
+
+
 
 export const Chat = () => {
     const [chats, setChats] = useState([])
@@ -32,6 +39,7 @@ export const Chat = () => {
         socket.current.emit('newUser', usuario.id)
         socket.current.on('getUsers', (users) => {
             setOnlineUsers([...users])
+            console.log(users)
         })
 
         return () => {
@@ -81,18 +89,25 @@ export const Chat = () => {
     return (
         <div className="Chat">
             <div className="Left-side-chat">
+                <Paper elevation={3} style={{ padding: '10px' }}>
                 <div className="Chat-container">
                     <h2>Chats</h2>
+                    
                     <div className="Chat-list">
                         {chats.map((chat, index) => (
                             <div key={index} onClick={() => setCurrentChat(chat)}>
-                                <Conversation data={chat} currentUserId={usuario.id}  online={checkOnlineStatus(chat)}/>
+                                <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
                             </div>
                         ))}
                     </div>
                 </div>
+                <button onClick={desconectar}>Desconectar</button>
+                </Paper>
             </div>
+            {/* right side  */}
+            <Paper elevation={3} style={{ padding: '10px' }}>
             <div className="Right-side-chat">
+             
                 <div style={{ width: '20rem', alignSelf: 'flex-end' }}>
                     <div className="Online-users">
                         <h2>Usuarios en línea</h2>
@@ -105,7 +120,10 @@ export const Chat = () => {
                 </div>
                 <ChatBox chat={currentChat} currentUser={usuario.id} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
             </div>
-            <button onClick={desconectar}>Desconectar</button>
+            </Paper>
+            
+           
         </div>
+       
     )
 }

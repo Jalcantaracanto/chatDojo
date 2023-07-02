@@ -4,6 +4,7 @@ import { getMessages } from '../services/message.service'
 import { format } from 'timeago.js'
 import InputEmoji from 'react-input-emoji'
 import { addMessage } from '../services/message.service'
+import "./chatBox.css";
 
 export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     const [userData, setUserData] = useState(null)
@@ -114,7 +115,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                         <div className="chat-sender">
                             {/* <div>+</div> */}
                             <InputEmoji value={newMessage} onChange={handleChange} />
-                            <button onClick={handleSend}>Enviar</button>
+                            <button   className="send-button button" onClick={handleSend}>Enviar</button>
                         </div>
                     </>
                 ) : (

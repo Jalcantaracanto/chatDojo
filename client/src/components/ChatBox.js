@@ -5,6 +5,7 @@ import { format } from 'timeago.js'
 import InputEmoji from 'react-input-emoji'
 import { addMessage } from '../services/message.service'
 import "./chatBox.css";
+import { Paper } from '@mui/material'
 
 export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     const [userData, setUserData] = useState(null)
@@ -87,16 +88,18 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                 {chat ? (
                     <>
                         <div className="chat-header">
-                            <div className="follower">
-                                <div>
+                            <Paper elevation={3} style={{ width: '100%', height: '100%', borderRadius: '0px' }}>
+                                <div className="follower">
                                     <div className="online-dot">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} />
-                                        <div className="name" style={{ fontSize: '0.8rem' }}>
-                                            <span>{userData?.nickname} </span>
+                                        <div className="follower-info">
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} />
+                                            <div className="name" style={{ fontSize: '0.8rem' }}>
+                                                <span>{userData?.nickname} </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Paper>
                             <hr style={{ width: '85%', border: '0.1px solid #ececec' }} />
                         </div>
                         {/* Chatbox Messages */}
@@ -115,7 +118,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                         <div className="chat-sender">
                             {/* <div>+</div> */}
                             <InputEmoji value={newMessage} onChange={handleChange} />
-                            <button   className="send-button button" onClick={handleSend}>Enviar</button>
+                            <button className="send-button button" onClick={handleSend}>Enviar</button>
                         </div>
                     </>
                 ) : (

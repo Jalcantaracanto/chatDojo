@@ -9,6 +9,7 @@ import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
 import { Paper } from '@mui/material'
+import Button from '@mui/material/Button';
 
 
 
@@ -101,7 +102,7 @@ export const Chat = () => {
                         ))}
                     </div>
                 </div>
-                <button onClick={desconectar}>Desconectar</button>
+                <Button variant="contained" onClick={desconectar}>Desconectar</Button>
                 </Paper>
             </div>
             {/* right side  */}

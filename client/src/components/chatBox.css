@@ -208,10 +208,13 @@
 }
 
 .online-dot {
-  background-color: rgb(151, 212, 61);
+  background-color: rgb(103, 137, 53);
   border-radius: 50%;
   width: 1rem;
   height: 1rem;
+  display: flex;
+  align-items: center;
+
 }
 
 .followerImage {

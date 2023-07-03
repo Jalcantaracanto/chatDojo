@@ -1,325 +1,146 @@
-/* :root {
-  --yellow: #f5c32c;
-  --orange: #fca61f;
-  --black: #242d49;
-  --gray: rgba(36, 45, 73, 0.65);
-  --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
-  --hrColor: #cfcdcd;
-  --cardColor: rgba(255, 255, 255, 0.64);
-  --buttonBg: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
-  --inputColor: rgba(40, 52, 62, 0.07);
-  --photo: #4CB256;
-  --video: #4A4EB7;
-  --location: #EF5757;
-  --shedule: #E1AE4A;
-}
-
-.online-dot {
-  background-color: greenyellow;
-  border-radius: 50%;
-  position: absolute;
-  left: 2rem;
-  width: 1rem;
-  height: 1rem;
-}
-
-.ChatBox-container {
-  background: var(--cardColor);
-  border-radius: 1rem;
-  display: grid;
-  grid-template-rows: 14vh 60vh 13vh;
-}
-
-.chat-header {
-  padding: 1rem 1rem 0rem 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.5rem;
-  overflow: scroll;
-}
-
-.message {
-
-  background: var(--buttonBg);
-  color: white;
-  padding: 0.7rem;
-  border-radius: 1rem 1rem 1rem 0;
-  max-width: 28rem;
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.message>span:nth-child(2){
-    font-size: 0.7rem;
-    color: var(--textColor);
-    align-self: end;
-}
-
-.own {
-  align-self: flex-end;
-  border-radius: 1rem 1rem 0 1rem;
-  background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
-}
-
-
-
-
-.chat-sender {
-  background: white;
-  display: flex;
-  justify-content: space-between;
-  height: 3.5rem;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.8rem;
-  border-radius: 1rem;
-  align-self: end;
-}
-
-.chat-sender>input {
-  height: 70%;
-  background-color: rgb(236, 236, 236);
-  border-radius: 0.5rem;
-  border: none;
-  outline: none;
-  flex: 1;
-  font-size: 14px;
-  padding: 0px 15px 0px 15px;
-}
-
-.chat-sender>div:nth-of-type(1) {
-  background: rgb(233, 233, 233);
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer
-}
-
-.chat-sender>div {
-  height: 70%;
-  padding: 0px 15px 0px 15px;
-}
-
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  background: var(--buttonBg);
-  transition: all 100ms ease-out;
-}
-
-.button:hover {
-  color: var(--orange);
-  border: 2px solid var(--orange);
-  cursor: pointer;
-  background: transparent;
-}
-
-.button:disabled {
-  background: silver;
-  pointer-events: none;
-}
-
-.follower {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-
-}
-
-.conversation {
-  border-radius: 0.5rem;
-  padding: 10px;
-}
-
-.follower {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-}
-
-.follower-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.follower .online-dot {
-  background-color: greenyellow;
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
-}
-
-.follower .followerImage {
-  width: 50px;
-  height: 50px;
-} */
-
 :root {
-  --yellow: #f5c32c;
-  --orange: #fca61f;
-  --black: #242d49;
-  --gray: rgba(36, 45, 73, 0.65);
-  --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
-  --hrColor: #cfcdcd;
-  --cardColor: rgba(255, 255, 255, 0.64);
-  --buttonBg: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
-  --inputColor: rgba(40, 52, 62, 0.07);
-  --photo: #4CB256;
-  --video: #4A4EB7;
-  --location: #EF5757;
-  --shedule: #E1AE4A;
+    --yellow: #f5c32c;
+    --orange: #fca61f;
+    --black: #242d49;
+    --gray: rgba(36, 45, 73, 0.65);
+    --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
+    --hrColor: #cfcdcd;
+    --cardColor: rgba(255, 255, 255, 0.64);
+    --buttonBg: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
+    --inputColor: rgba(40, 52, 62, 0.07);
+    --photo: #4cb256;
+    --video: #4a4eb7;
+    --location: #ef5757;
+    --shedule: #e1ae4a;
 }
 
 .Chatbox-container {
-  background: var(--cardColor);
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+    background: var(--cardColor);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.chatbox-message{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.5rem;
-  overflow: auto;
-  overflow-y: auto;
-  max-height: 50vh;
-  
+.chatbox-message {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    overflow: auto;
+    overflow-y: auto;
+    max-height: 50vh;
 }
-
 
 .chat-header {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .follower {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .online-dot {
-  background-color: rgb(103, 137, 53);
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
-  display: flex;
-  align-items: center;
-
+    background-color: rgb(103, 137, 53);
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 .followerImage {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 .chat-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.5rem;
-  overflow: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    overflow: auto;
 }
 
 .message {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  color: white;
-  background: var(--buttonBg);
-  border-radius: 1rem 1rem 1rem 0;
-  width: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    background: var(--buttonBg);
+    border-radius: 1rem 1rem 1rem 0;
+    width: fit-content;
 }
 
 .message span {
-  font-size: 0.7rem;
-  color: var(--textColor);
-  margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--textColor);
+    margin-left: auto;
 }
 
 .own {
-  justify-content: flex-end;
-  align-self: flex-end;
-  border-radius: 1rem 1rem 0 1rem;
-  background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
+    justify-content: flex-end;
+    align-self: flex-end;
+    border-radius: 1rem 1rem 0 1rem;
+    background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
 }
 
 .chat-sender {
-  background: white;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.8rem;
-  border-radius: 1rem;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    border-radius: 1rem;
 }
 
 .chat-sender > input {
-  height: 70%;
-  background-color: rgb(236, 236, 236);
-  border-radius: 0.5rem;
-  border: none;
-  outline: none;
-  flex: 1;
-  font-size: 14px;
-  padding: 0px 15px;
+    height: 70%;
+    background-color: rgb(236, 236, 236);
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    padding: 0px 15px;
 }
 
 .send-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  background: var(--buttonBg);
-  transition: all 100ms ease-out;
-  height: 8vh;
-  width: 16vh;
-  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--buttonBg);
+    transition: all 100ms ease-out;
+    height: 8vh;
+    width: 16vh;
 }
 
 .send-button:hover {
-  color: var(--orange);
-  border: 2px solid var(--orange);
-  cursor: pointer;
-  background: transparent;
+    color: var(--orange);
+    border: 2px solid var(--orange);
+    cursor: pointer;
+    background: transparent;
 }
 
 .chatbox-empty-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  font-size: 1.2rem;
-  color: var(--gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.2rem;
+    color: var(--gray);
 }
 
 hr {
-  border: none;
-  height: 1px;
-  background-color: var(--hrColor);
-  margin: 1rem 0;
+    border: none;
+    height: 1px;
+    background-color: var(--hrColor);
+    margin: 1rem 0;
 }

@@ -103,6 +103,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                             <hr style={{ width: '85%', border: '0.1px solid #ececec' }} />
                         </div>
                         {/* Chatbox Messages */}
+                        <div className="chatbox-message">
                         {messages.map((message) => (
                             <>
                                 <div ref={scroll}></div>
@@ -114,6 +115,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                                 </div>
                             </>
                         ))}
+                        </div>
                         {/* chat sender*/}
                         <div className="chat-sender">
                             {/* <div>+</div> */}

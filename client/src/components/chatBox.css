@@ -197,6 +197,19 @@
   height: 100%;
 }
 
+.chatbox-message{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  overflow: auto;
+  overflow-y: auto;
+  max-height: 50vh;
+  
+}
+
+
 .chat-header {
   padding: 1rem;
 }
@@ -283,6 +296,9 @@
   border-radius: 0.5rem;
   background: var(--buttonBg);
   transition: all 100ms ease-out;
+  height: 8vh;
+  width: 16vh;
+  
 }
 
 .send-button:hover {

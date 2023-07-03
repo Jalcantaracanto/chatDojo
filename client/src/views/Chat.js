@@ -8,6 +8,8 @@ import { logout } from '../services/user.service'
 import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
+
+// MUI 
 import { Paper } from '@mui/material'
 import Button from '@mui/material/Button'
 
@@ -23,6 +25,12 @@ export const Chat = () => {
     const { usuario, clearLocalStorage } = useContext(UserContext)
 
     const socket = useRef()
+
+    const [checked, setChecked] = React.useState(false)
+
+    const handleChange = (event) => {
+        setChecked(event.target.checked)
+    }
 
     //Enviar mensaje al socket server
     useEffect(() => {
@@ -49,7 +57,6 @@ export const Chat = () => {
             setReceiveMessage(data)
         })
     }, [])
-
     const getChats = () => {
         userChats(usuario.id)
             .then((response) => {
@@ -59,12 +66,10 @@ export const Chat = () => {
                 console.log(error)
             })
     }
-
     useEffect(() => {
         getChats()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [usuario])
-
     const desconectar = () => {
         logout()
             .then((response) => {
@@ -76,7 +81,6 @@ export const Chat = () => {
                 console.log(error)
             })
     }
-
     const checkOnlineStatus = (chat) => {
         const chatMembers = chat.members.find((member) => member !== usuario.id)
         const online = onlineUsers.find((user) => user.userId === chatMembers)
@@ -120,6 +124,8 @@ export const Chat = () => {
                         <ChatBox chat={currentChat} currentUser={usuario.id} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
                     </div>
                 </Paper>
+
+
             </div>
         </>
     )

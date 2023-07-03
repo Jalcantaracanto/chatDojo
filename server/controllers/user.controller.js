@@ -70,3 +70,9 @@ module.exports.updateUser = (req, res) => {
         .then((updatedUser) => res.json({ user: updatedUser }))
         .catch((err) => res.json({ message: 'Error al actualizar usuario', error: err }))
 }
+
+module.exports.findUserByEmail = (req, res) => {
+    User.findOne({ email: req.params.email })
+        .then((user) => res.json({ user }))
+        .catch((err) => res.json({ message: 'Error al buscar usuario', error: err }))
+}

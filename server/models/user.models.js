@@ -19,6 +19,10 @@ const UserSchema = new Schema(
             type: String,
             required: [true, 'La contraseña es requerida'],
         },
+        contactos: {
+            type: Array,
+            default: [],
+        },
     },
     { timestamps: true }
 )

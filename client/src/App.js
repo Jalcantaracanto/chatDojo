@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Chat } from './views/Chat'
 import { Forms } from './views/Forms'
 import { UserProvider } from './context/UserProvider'
+import { SearchContact } from './components/SearchContact'
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/" element={<Forms />} />
                 <Route path="/login" element={<Forms />} />
                 <Route path="/chat" element={<Chat />} />
+                <Route path="/buscar-contacto" element={<SearchContact />} />
             </Routes>
         </UserProvider>
         </div>

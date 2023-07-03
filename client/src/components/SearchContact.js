@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { getUsers, updateUser, getUser } from '../services/user.service'
+import { getUsers, addContact, getUser } from '../services/user.service'
 import { UserContext } from '../context/UserProvider'
 
 // Material UI
@@ -32,6 +32,7 @@ export const SearchContact = () => {
         getUser(usuario.id)
             .then((response) => {
                 setUser(response.data.user)
+                console.log(response.data.user)
             })
             .catch((error) => {
                 console.log(error)
@@ -68,12 +69,20 @@ export const SearchContact = () => {
         setSearchFilter(filteredUsers)
     }
 
-    const addContact = () => {
+    const addContactFromService = () => {
+        const contactId = searchFilter[0]._id
+
         const updatedUser = { ...user } // Copia el objeto de usuario actual
-        updatedUser.contactos.push(searchFilter[0].nickname) // Agrega el ID del nuevo contacto al arreglo de contactos
 
+        //No hace push contacto existe
+        if (updatedUser.contactos.includes(contactId)) {
+            console.log('Contacto ya existe')
+            return
+        }
 
-        updateUser(user._id, updatedUser)
+        updatedUser.contactos.push(searchFilter[0]._id) // Agrega el ID del nuevo contacto al arreglo de contactos
+
+        addContact(user._id, updatedUser)
             .then((response) => {
                 console.log(response)
             })
@@ -99,7 +108,7 @@ export const SearchContact = () => {
                                     .map((value, index) => (
                                         <ListItem
                                             secondaryAction={
-                                                <IconButton edge="end" aria-label="delete" onClick={addContact}>
+                                                <IconButton edge="end" aria-label="delete" onClick={addContactFromService}>
                                                     <AddIcon />
                                                 </IconButton>
                                             }

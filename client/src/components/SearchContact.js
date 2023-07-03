@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { getUsers } from '../services/user.service'
+import React, { useEffect, useState, useContext } from 'react'
+import { getUsers, updateUser, getUser } from '../services/user.service'
+import { UserContext } from '../context/UserProvider'
 
 // Material UI
 import { styled } from '@mui/material/styles'
@@ -23,11 +24,23 @@ export const SearchContact = () => {
     const [dense, setDense] = React.useState(false)
     const [users, setUsers] = useState([])
     const [searchFilter, setSearchFilter] = useState([])
+    const [user, setUser] = useState()
+
+    const { usuario } = useContext(UserContext)
+
+    const getUserFromService = () => {
+        getUser(usuario.id)
+            .then((response) => {
+                setUser(response.data.user)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     const getAllUsersFromService = () => {
         getUsers()
             .then((response) => {
-                console.log(response.data.users)
                 setUsers(response.data.users)
             })
             .catch((error) => {
@@ -37,11 +50,11 @@ export const SearchContact = () => {
 
     useEffect(() => {
         getAllUsersFromService()
+        getUserFromService()
     }, [])
 
     const handleChange = (e) => {
         const { value } = e.target
-        console.log(value)
 
         if (value.trim() === '') {
             setSearchFilter([]) // Restablecer el estado del filtro a un arreglo vacío
@@ -53,25 +66,21 @@ export const SearchContact = () => {
             return user.nickname.toLowerCase().includes(value.toLowerCase())
         })
         setSearchFilter(filteredUsers)
-        console.log(filteredUsers)
     }
 
-    // function generate() {
-    //     return searchFilter.map((value) => (
-    //         <ListItem
-    //             secondaryAction={
-    //                 <IconButton edge="end" aria-label="delete">
-    //                     <AddIcon />
-    //                 </IconButton>
-    //             }
-    //         >
-    //             <ListItemAvatar>
-    //                 <Avatar alt="avatar" src="https://img.freepik.com/vector-premium/perfil-avatar-hombre-icono-redondo_24640-14044.jpg?w=2000" sx={{ width: 56, height: 56 }} />
-    //             </ListItemAvatar>
-    //             <ListItemText primary={value.nickname} />
-    //         </ListItem>
-    //     ))
-    // }
+    const addContact = () => {
+        const updatedUser = { ...user } // Copia el objeto de usuario actual
+        updatedUser.contactos.push(searchFilter[0].nickname) // Agrega el ID del nuevo contacto al arreglo de contactos
+
+
+        updateUser(user._id, updatedUser)
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     return (
         <>
@@ -87,13 +96,14 @@ export const SearchContact = () => {
                             {searchFilter.length > 0 ? (
                                 searchFilter
                                     .sort((a, b) => a.nickname.localeCompare(b.nickname)) // Ordena los elementos por el nickname
-                                    .map((value) => (
+                                    .map((value, index) => (
                                         <ListItem
                                             secondaryAction={
-                                                <IconButton edge="end" aria-label="delete">
+                                                <IconButton edge="end" aria-label="delete" onClick={addContact}>
                                                     <AddIcon />
                                                 </IconButton>
                                             }
+                                            key={index}
                                         >
                                             <ListItemAvatar>
                                                 <Avatar alt="avatar" src="https://img.freepik.com/vector-premium/perfil-avatar-hombre-icono-redondo_24640-14044.jpg?w=2000" sx={{ width: 56, height: 56 }} />

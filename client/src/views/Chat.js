@@ -73,17 +73,7 @@ export const Chat = () => {
         getChats()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [usuario])
-    const desconectar = () => {
-        logout()
-            .then((response) => {
-                Cookies.remove('usertoken')
-                clearLocalStorage()
-                navigate('/')
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+    
     const checkOnlineStatus = (chat) => {
         const chatMembers = chat.members.find((member) => member !== usuario.id)
         const online = onlineUsers.find((user) => user.userId === chatMembers)
@@ -112,9 +102,7 @@ export const Chat = () => {
                             ))}
                         </div> */}
                                 </div>
-                                <Button variant="contained" onClick={desconectar}>
-                                    Desconectar
-                                </Button>
+                                
                             </Paper>
                         ) : (
                             <Paper elevation={3} style={{ padding: '10px' }}>
@@ -127,9 +115,7 @@ export const Chat = () => {
                                         ))}
                                     </div>
                                 </div>
-                                <Button variant="contained" onClick={desconectar}>
-                                    Desconectar
-                                </Button>
+                                
                             </Paper>
                         )}
                     </Paper>

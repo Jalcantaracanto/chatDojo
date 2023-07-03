@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../context/UserProvider'
+import Cookies from 'js-cookie'
+import { logout } from '../services/user.service'
+import { useNavigate } from 'react-router-dom'
 
 // Material UI
 import AppBar from '@mui/material/AppBar'
@@ -16,11 +20,14 @@ import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 
 const pages = ['Products', 'Pricing', 'Blog']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+const settings = ['Profile', 'Logout']
 
 export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null)
     const [anchorElUser, setAnchorElUser] = React.useState(null)
+
+    const { usuario, clearLocalStorage } = useContext(UserContext)
+    const navigate = useNavigate()
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -36,6 +43,22 @@ export const Navbar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
+
+
+    //LOGOUT
+    const desconectar = () => {
+        logout()
+            .then((response) => {
+                Cookies.remove('usertoken')
+                clearLocalStorage()
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+
 
     return (
         <AppBar position="static">
@@ -138,11 +161,34 @@ export const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
+                            {/* {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
+                            {settings.map((setting) => {
+                                if (setting === 'Logout') {
+                                    return (
+                                        <MenuItem key={setting} onClick={desconectar}>
+                                            <Typography textAlign="center">{setting}</Typography>
+                                        </MenuItem>
+                                    );
+                                    
+                                } if (setting === 'Profile') {
+                                    return (
+                                        <MenuItem key={setting} onClick={() => navigate('/profile')} >
+                                            <Typography textAlign="center">{setting}</Typography>
+                                        </MenuItem>
+                                    )                          
+                                }
+                                else {
+                                    return (
+                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                            <Typography textAlign="center">{setting}</Typography>
+                                        </MenuItem>
+                                    );
+                                }
+                            })}
                         </Menu>
                     </Box>
                 </Toolbar>

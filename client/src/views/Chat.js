@@ -9,17 +9,14 @@ import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
 
-// MUI 
+// MUI
 import { Paper } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import Switch from '@mui/material/Switch'
-import ChatIcon from '@mui/icons-material/Chat';
-import PeopleIcon from '@mui/icons-material/People';
-import Button from '@mui/material/Button';
-
-
-
-
+import ChatIcon from '@mui/icons-material/Chat'
+import PeopleIcon from '@mui/icons-material/People'
+import Button from '@mui/material/Button'
+import { Navbar } from '../components/Navbar'
 
 export const Chat = () => {
     const [chats, setChats] = useState([])
@@ -94,28 +91,32 @@ export const Chat = () => {
     }
 
     return (
-        <div className="Chat">
-            <div className="Left-side-chat">
-                <Paper elevation={3} style={{ padding: '10px' }}>
-                    {checked ? <Chip icon={<PeopleIcon />} label="Chats/Friends" color="primary" variant="outlined" /> : <Chip icon={<ChatIcon />} label="Chats/Friends" color="primary" variant="outlined" />}
-                    <br />
-                    <Switch checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />
-                    <br />
-                    {checked ? (
-                        <Paper elevation={3} style={{ padding: '10px' }}>
-                            <div className="Chat-container">
-                                {/* <div className="Chat-list">
+        <>
+            <Navbar />
+
+            <div className="Chat">
+                <div className="Left-side-chat">
+                    <Paper elevation={3} style={{ padding: '10px' }}>
+                        {checked ? <Chip icon={<PeopleIcon />} label="Chats/Friends" color="primary" variant="outlined" /> : <Chip icon={<ChatIcon />} label="Chats/Friends" color="primary" variant="outlined" />}
+                        <br />
+                        <Switch checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />
+                        <br />
+                        {checked ? (
+                            <Paper elevation={3} style={{ padding: '10px' }}>
+                                <div className="Chat-container">
+                                    {/* <div className="Chat-list">
                             {chats.map((chat, index) => (
                                 <div key={index} onClick={() => setCurrentChat(chat)}>
                                     <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
                                 </div>
                             ))}
                         </div> */}
-                            </div>
-                            <Button variant="contained" onClick={desconectar}>Desconectar</Button>
-                        </Paper>
-                    )
-                        : (
+                                </div>
+                                <Button variant="contained" onClick={desconectar}>
+                                    Desconectar
+                                </Button>
+                            </Paper>
+                        ) : (
                             <Paper elevation={3} style={{ padding: '10px' }}>
                                 <div className="Chat-container">
                                     <div className="Chat-list">
@@ -126,34 +127,20 @@ export const Chat = () => {
                                         ))}
                                     </div>
                                 </div>
-                                <Button variant="contained" onClick={desconectar}>Desconectar</Button>
+                                <Button variant="contained" onClick={desconectar}>
+                                    Desconectar
+                                </Button>
                             </Paper>
-                        )
-                    }
-                </Paper>
-
-
-            </div>
-            {/* right side  */}
-            <Paper elevation={3} style={{ padding: '10px' }}>
-                <div className="Right-side-chat">
-
-                    <div style={{ width: '20rem', alignSelf: 'flex-end' }}>
-                        <div className="Online-users">
-                            <h2>Usuarios en lÃ­nea</h2>
-                            <ul>
-                                {onlineUsers.map((user) => (
-                                    <li key={user.userId}>{user.userId}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                    <ChatBox chat={currentChat} currentUser={usuario.id} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
+                        )}
+                    </Paper>
                 </div>
-            </Paper>
-
-
-        </div>
-
+                {/* right side  */}
+                <Paper elevation={3} style={{ padding: '10px' }}>
+                    <div className="Right-side-chat">
+                        <ChatBox chat={currentChat} currentUser={usuario.id} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
+                    </div>
+                </Paper>
+            </div>
+        </>
     )
 }

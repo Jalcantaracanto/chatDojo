@@ -23,7 +23,7 @@ const Demo = styled('div')(({ theme }) => ({
 }))
 
 export const SearchContact = ({ closePopup }) => {
-    const [dense, setDense] = React.useState(false)
+    const [dense, setDense] = useState(false)
     const [users, setUsers] = useState([])
     const [searchFilter, setSearchFilter] = useState([])
     const [user, setUser] = useState()

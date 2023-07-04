@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import './Chat.css'
 import { userChats } from '../services/chat.service'
 import { UserContext } from '../context/UserProvider'
-import { useNavigate } from 'react-router-dom'
 import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
@@ -25,12 +24,11 @@ export const Chat = () => {
     const [onlineUsers, setOnlineUsers] = useState([])
     const [sendMessage, setSendMessage] = useState(null)
     const [receiveMessage, setReceiveMessage] = useState(null)
-    const navigate = useNavigate()
-    const { usuario, clearLocalStorage } = useContext(UserContext)
+    const { usuario } = useContext(UserContext)
 
-    const socket = useRef()
+    const socketRef = useRef(null)
 
-    const [checked, setChecked] = React.useState(false)
+    const [checked, setChecked] = useState(false)
 
     //popup
     const [isPopupOpen, setIsPopupOpen] = useState(false)
@@ -45,28 +43,30 @@ export const Chat = () => {
     //Enviar mensaje al socket server
     useEffect(() => {
         if (sendMessage !== null) {
-            socket.current.emit('sendMessage', sendMessage)
+            socketRef.current.emit('sendMessage', sendMessage)
         }
     }, [sendMessage])
 
     useEffect(() => {
-        socket.current = io('http://localhost:8080')
-        socket.current.emit('newUser', usuario.id)
-        socket.current.on('getUsers', (users) => {
+        socketRef.current = io(':8080')
+        socketRef.current.emit('newUser', usuario.id)
+        socketRef.current.on('getUsers', (users) => {
             setOnlineUsers([...users])
             console.log(users)
         })
 
         return () => {
-            socket.current.disconnect()
+            socketRef.current.disconnect()
         }
     }, [usuario])
+
     //Recibir mensaje del socket server
     useEffect(() => {
-        socket.current.on('receiveMessage', (data) => {
+        socketRef.current.on('receiveMessage', (data) => {
             setReceiveMessage(data)
         })
     }, [])
+
     const getChats = () => {
         userChats(usuario.id)
             .then((response) => {
@@ -76,6 +76,7 @@ export const Chat = () => {
                 console.log(error)
             })
     }
+
     useEffect(() => {
         getChats()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,10 +114,10 @@ export const Chat = () => {
                                     <div className="Chat-list">
                                         <Friends />
                                         {/* {chats.map((chat, index) => (
-                                <div key={index} onClick={() => setCurrentChat(chat)}>
-                                    <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
-                                </div>
-                            ))} */}
+                    <div key={index} onClick={() => setCurrentChat(chat)}>
+                        <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
+                    </div>
+                    ))} */}
                                     </div>
                                 </div>
                             </Paper>

@@ -103,10 +103,10 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                         </div>
                         {/* Chatbox Messages */}
                         <div className="chatbox-message">
-                            {messages.map((message) => (
+                            {messages.map((message, index) => (
                                 <>
                                     <div ref={scroll}></div>
-                                    <div className={message.senderId === currentUser ? 'message own' : 'message'}>
+                                    <div key={index} className={message.senderId === currentUser ? 'message own' : 'message'}>
                                         <span>{message.text}</span>
                                         {/* <div>
                                         <span>{format(message.createdAt)}</span>

@@ -8,6 +8,7 @@ import { logout } from '../services/user.service'
 import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
+import { SearchContact } from '../components/SearchContact'
 
 // MUI
 import { Paper } from '@mui/material'
@@ -17,6 +18,7 @@ import ChatIcon from '@mui/icons-material/Chat'
 import PeopleIcon from '@mui/icons-material/People'
 import Button from '@mui/material/Button'
 import { Navbar } from '../components/Navbar'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 
 export const Chat = () => {
     const [chats, setChats] = useState([])
@@ -30,6 +32,12 @@ export const Chat = () => {
     const socket = useRef()
 
     const [checked, setChecked] = React.useState(false)
+
+    //popup
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
+    const closePopup = () => {
+        setIsPopupOpen(false)
+    }
 
     const handleChange = (event) => {
         setChecked(event.target.checked)
@@ -73,7 +81,7 @@ export const Chat = () => {
         getChats()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [usuario])
-    
+
     const checkOnlineStatus = (chat) => {
         const chatMembers = chat.members.find((member) => member !== usuario.id)
         const online = onlineUsers.find((user) => user.userId === chatMembers)
@@ -90,7 +98,16 @@ export const Chat = () => {
                         {checked ? <Chip icon={<PeopleIcon />} label="Chats/Friends" color="primary" variant="outlined" /> : <Chip icon={<ChatIcon />} label="Chats/Friends" color="primary" variant="outlined" />}
                         <br />
                         <Switch checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />
+
                         <br />
+                        {/* <AddCircleIcon /> */}
+                        <PersonAddIcon onClick={() => setIsPopupOpen(true)} className="add-contact-icon" />
+                        {isPopupOpen && (
+                            <div className="popup">
+                                <SearchContact closePopup={closePopup} />
+                            </div>
+                        )}
+
                         {checked ? (
                             <Paper elevation={3} style={{ padding: '10px' }}>
                                 <div className="Chat-container">
@@ -102,7 +119,6 @@ export const Chat = () => {
                             ))}
                         </div> */}
                                 </div>
-                                
                             </Paper>
                         ) : (
                             <Paper elevation={3} style={{ padding: '10px' }}>
@@ -115,7 +131,6 @@ export const Chat = () => {
                                         ))}
                                     </div>
                                 </div>
-                                
                             </Paper>
                         )}
                     </Paper>

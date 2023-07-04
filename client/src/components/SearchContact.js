@@ -15,12 +15,13 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import AddIcon from '@mui/icons-material/Add'
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
 }))
 
-export const SearchContact = () => {
+export const SearchContact = ({ closePopup }) => {
     const [dense, setDense] = React.useState(false)
     const [users, setUsers] = useState([])
     const [searchFilter, setSearchFilter] = useState([])
@@ -126,6 +127,9 @@ export const SearchContact = () => {
                         </List>
                     </Demo>
                 </Grid>
+                <IconButton className="popup-close-button" edge="end" aria-label="close" onClick={closePopup}>
+                    <CancelIcon />
+                </IconButton>
             </Box>
         </>
     )

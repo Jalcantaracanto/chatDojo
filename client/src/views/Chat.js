@@ -17,6 +17,7 @@ import ChatIcon from '@mui/icons-material/Chat'
 import PeopleIcon from '@mui/icons-material/People'
 import { Navbar } from '../components/Navbar'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export const Chat = () => {
     const [chats, setChats] = useState([])
@@ -124,9 +125,13 @@ export const Chat = () => {
                                 <div className="Chat-container">
                                     <div className="Chat-list">
                                         {chats.map((chat, index) => (
+                                            
                                             <div key={index} onClick={() => setCurrentChat(chat)}>
                                                 <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
+                                                
                                             </div>
+                                            
+                                            
                                         ))}
                                     </div>
                                 </div>

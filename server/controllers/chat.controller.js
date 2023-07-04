@@ -32,3 +32,13 @@ module.exports.findChat = (req, res) => {
             res.status(500).json({ error: error })
         })
 }
+
+module.exports.deleteChat = (req, res) => {
+    Chat.deleteOne({ _id: req.params.id })
+        .then((result) => {
+            res.status(200).json({ result: result })
+        })
+        .catch((error) => {
+            res.status(500).json({ error: error })
+        })
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUser, updateUser } from "../services/user.service";
+import { getUser, updateUser, deleteUser} from "../services/user.service";
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 
@@ -47,12 +47,18 @@ const Profile = () => {
             })
     }
 
+    const handleDeleteAccount = () => {
+        deleteUser(id)
+            .then((response) => {
+                console.log(response.data.user)
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
-
-
-
-  const handleDeleteAccount = () => {
-  };
+        
 
   return (
     <div>

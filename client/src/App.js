@@ -5,7 +5,7 @@ import { Chat } from './views/Chat'
 import { Forms } from './views/Forms'
 import { UserProvider } from './context/UserProvider'
 import { SearchContact } from './components/SearchContact'
-import { Pruebab } from './components/Pruebab'
+import Profile from './views/Profile'
 
 function App() {
     return (
@@ -27,7 +27,8 @@ function App() {
                 <Route path="/login" element={<Forms />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/buscar-contacto" element={<SearchContact />} />
-                <Route path="/test" element={<Pruebab />} />
+                <Route path="/profile" element={<Profile />} />
+                {/* <Route path="/test" element={<Friends />} /> */}
             </Routes>
         </UserProvider>
         </div>

@@ -3,6 +3,7 @@ import { login } from '../services/user.service'
 import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { UserContext } from '../context/UserProvider'
+import { checkTrue } from '../views/Forms'
 
 //MUI
 import Alert from '@mui/material/Alert'
@@ -23,7 +24,7 @@ const isEmail = (email) => {
     return re.test(email)
 }
 
-export const Login = () => {
+export const Login = ({ checkTrue }) => {
     // password field
     const [showPassword, setShowPassword] = React.useState(false)
 
@@ -166,7 +167,10 @@ export const Login = () => {
                 </Button>
             </p>
             <small align="left">
-                Do you have an account? <Link to="/register">register</Link>
+                Do you have an account? <a href="#" onClick={checkTrue}>
+                    Register
+                </a>
+
             </small>
             <p>{formValid && <Alert severity="error">{formValid}</Alert>}</p>
             <p>{formSuccess && <Alert severity="success">{formSuccess}</Alert>}</p>

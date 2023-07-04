@@ -88,7 +88,6 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                 {chat ? (
                     <>
                         <div className="chat-header">
-                            <Paper elevation={3} style={{ width: '100%', height: '100%', borderRadius: '0px' }}>
                                 <div className="follower">
                                     <div className="online-dot">
                                         <div className="follower-info">
@@ -99,7 +98,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                                         </div>
                                     </div>
                                 </div>
-                            </Paper>
+                            
                             <hr style={{ width: '85%', border: '0.1px solid #ececec' }} />
                         </div>
                         {/* Chatbox Messages */}

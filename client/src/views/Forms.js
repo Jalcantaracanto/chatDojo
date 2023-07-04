@@ -16,6 +16,14 @@ export const Forms = () => {
     const handleChange = (event) => {
         setChecked(event.target.checked)
     }
+    const checkTrue = () => {
+        setChecked(true)
+    }
+
+    const checkFalse = () => {
+        setChecked(false)
+    }
+
     return (
         <div className={Styles.container}>
             <Paper elevation={3} style={{ padding: '10px' }}>
@@ -23,7 +31,7 @@ export const Forms = () => {
                 <br />
                 <Switch checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />
                 <br />
-                {checked ? <Register /> : <Login />}
+                {checked ? <Register checkFalse={checkFalse} /> : <Login checkTrue={checkTrue} />}
             </Paper>
         </div>
     )

@@ -3,12 +3,11 @@ import './Chat.css'
 import { userChats } from '../services/chat.service'
 import { UserContext } from '../context/UserProvider'
 import { useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import { logout } from '../services/user.service'
 import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
 import { SearchContact } from '../components/SearchContact'
+import { Pruebab } from '../components/Friends'
 
 // MUI
 import { Paper } from '@mui/material'
@@ -16,7 +15,6 @@ import Chip from '@mui/material/Chip'
 import Switch from '@mui/material/Switch'
 import ChatIcon from '@mui/icons-material/Chat'
 import PeopleIcon from '@mui/icons-material/People'
-import Button from '@mui/material/Button'
 import { Navbar } from '../components/Navbar'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 
@@ -111,13 +109,14 @@ export const Chat = () => {
                         {checked ? (
                             <Paper elevation={3} style={{ padding: '10px' }}>
                                 <div className="Chat-container">
-                                    {/* <div className="Chat-list">
-                            {chats.map((chat, index) => (
+                                    <div className="Chat-list">
+                                        <Pruebab />
+                                        {/* {chats.map((chat, index) => (
                                 <div key={index} onClick={() => setCurrentChat(chat)}>
                                     <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
                                 </div>
-                            ))}
-                        </div> */}
+                            ))} */}
+                                    </div>
                                 </div>
                             </Paper>
                         ) : (

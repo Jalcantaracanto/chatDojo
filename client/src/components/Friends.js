@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/UserProvider'
 import { getUser } from '../services/user.service'
+import { Paper } from '@mui/material'
+import { get } from 'mongoose'
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export const Pruebab = () => {
     const [user, setUser] = useState({})
@@ -39,16 +43,32 @@ export const Pruebab = () => {
         getUserFromService()
     }, [userId])
 
+   
+
 
     return (
         <>
-            <h1>Prueba B</h1>
+
             <button onClick={getContactNames}>test</button>
-            <ul>
+
+            <Paper elevation={3} style={{ padding: '10px' }}>
                 {contactNames.map((nombre, index) => (
-                    <li key={index}>{nombre}</li>
+                    <div key={index}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>                          
+                                {nombre && <AccountCircle />}
+                            <span>{nombre}</span>
+                        </div>
+                    </div>
                 ))}
-            </ul>
+            </Paper>
+
+            {/*  <div>
+                    {contactNames.map((nombre, index) => (
+                        <div key={index}>{nombre}</div>
+                    ))}
+                </div> */}
+
+
         </>
     )
 }

@@ -14,13 +14,14 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { checkFalse } from '../views/Forms'
 
 const isEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
 };
 
-export const Register = () => {
+export const Register = ({checkFalse}) => {
     // password field
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -135,7 +136,7 @@ export const Register = () => {
         registro(user)
             .then((response) => {
                 console.log(response)
-                navigate('/forms')
+                checkFalse()
             })
             .catch((error) => {
                 console.log(error)

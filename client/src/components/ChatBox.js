@@ -125,7 +125,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                         </div>
                     </>
                 ) : (
-                    <span className="chatbox-empty-message">Tap on Chat to start Conversation</span>
+                    <span className="chatbox-empty-message">Welcome! Tap on Chat to start Conversation</span>
                 )}
             </div>
         </>

@@ -7,7 +7,7 @@ import { Conversation } from '../components/Conversation'
 import { ChatBox } from '../components/ChatBox'
 import { io } from 'socket.io-client'
 import { SearchContact } from '../components/SearchContact'
-import { Pruebab } from '../components/Friends'
+import { Friends } from '../components/Friends'
 
 // MUI
 import { Paper } from '@mui/material'
@@ -110,7 +110,7 @@ export const Chat = () => {
                             <Paper elevation={3} style={{ padding: '10px' }}>
                                 <div className="Chat-container">
                                     <div className="Chat-list">
-                                        <Pruebab />
+                                        <Friends />
                                         {/* {chats.map((chat, index) => (
                                 <div key={index} onClick={() => setCurrentChat(chat)}>
                                     <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />

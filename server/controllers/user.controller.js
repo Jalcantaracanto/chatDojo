@@ -71,6 +71,26 @@ module.exports.updateUser = (req, res) => {
         .catch((err) => res.json({ message: 'Error al actualizar usuario', error: err }))
 }
 
+/* module.exports.deleteUser = (req, res) => {
+    User.deleteOne({ _id: req.params.id })
+        .then((user) => res.json({ user: user }))
+        .catch((err) => res.json({ error: err }))
+} */
+module.exports.deleteUser = (req, res) => {
+    const userId = req.params.id;
+
+    User.deleteOne({ _id: userId })
+        .then(() => {
+            // Eliminar al usuario eliminado de la lista de contactos de los demás usuarios
+            User.updateMany({ contactos: userId }, { $pull: { contactos: userId } })
+                .then(() => res.json({ msg: 'Usuario eliminado correctamente' }))
+                .catch((err) => res.status(500).json({ error: err }));
+        })
+        .catch((err) => res.status(500).json({ error: err }));
+};
+
+
+
 module.exports.findUserByEmail = (req, res) => {
     User.findOne({ email: req.params.email })
         .then((user) => res.json({ user }))
@@ -86,3 +106,5 @@ module.exports.addContact = (req, res) => {
         .then((updatedUser) => res.json({ user: updatedUser }))
         .catch((err) => res.json({ message: 'Error al actualizar usuario', error: err }))
 }
+
+

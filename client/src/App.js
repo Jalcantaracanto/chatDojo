@@ -27,7 +27,7 @@ function App() {
                 <Route path="/login" element={<Forms />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/buscar-contacto" element={<SearchContact />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/:id" element={<Profile />} />
                 {/* <Route path="/test" element={<Friends />} /> */}
             </Routes>
         </UserProvider>

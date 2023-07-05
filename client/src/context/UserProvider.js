@@ -3,14 +3,10 @@ import React, { useState, createContext, useEffect } from 'react'
 export const UserContext = createContext([])
 
 export const UserProvider = ({ children }) => {
-    const [usuario, setUsuario] = useState({
-        id: '',
-        nickname: '',
-        email: '',
-    })
+    const [usuario, setUsuario] = useState({ token: null })
 
     useEffect(() => {
-        //Recupera el usuario del almacenamiento local al cargar la página
+        // Recupera el usuario del almacenamiento local al cargar la página
         const storedUser = localStorage.getItem('usuario')
         if (storedUser) {
             setUsuario(JSON.parse(storedUser))
@@ -18,7 +14,7 @@ export const UserProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        //Guarda el usuario cada vez que hay un cambio
+        // Guarda el usuario cada vez que hay un cambio
         localStorage.setItem('usuario', JSON.stringify(usuario))
     }, [usuario])
 
@@ -35,7 +31,7 @@ export const UserProvider = ({ children }) => {
             value={{
                 usuario,
                 setUsuario,
-                clearLocalStorage
+                clearLocalStorage,
             }}
         >
             {children}

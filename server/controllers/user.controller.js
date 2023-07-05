@@ -98,10 +98,10 @@ module.exports.findUserByEmail = (req, res) => {
 
 module.exports.addContact = (req, res) => {
     console.log(req.body)
-    User.findOneAndUpdate({ _id: req.params.id, contactos: { $ne: req.body.contactos } }, { $push: { contactos: req.body.contactos } }, { new: true })
+    User.findOneAndUpdate({ _id: req.params.id, contactos: { $ne: req.body.contactos } }, { $push: { contactos: req.body.contactos[0] } }, { new: true })
         .then((updatedUser) => {
             // Llama a createChat pasando los IDs
-            Chat.create({ members: [req.params.id, req.body.contactos] })
+            Chat.create({ members: [req.params.id, req.body.contactos[0]] })
 
                 .then((result) => {
                     res.status(200).json({ chat: result })

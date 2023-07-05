@@ -75,24 +75,34 @@ export const SearchContact = ({ closePopup, getChats }) => {
         })
         setSearchFilter(filteredUsers)
     }
-    
 
-    
     const addContactFromService = () => {
         const contactId = searchFilter[0]._id
 
-        console.log(contactId)
-        console.log(user._id)
+        const updatedUser = { ...user } // Copia el objeto de usuario actual
 
-        // addContact(usuario.id, contactId)
-        //     .then((response) => {
-        //         closePopup()
-        //         setFormSuccess('Contacto agregado')
-        //         getChats()
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     })
+        //No hace push contacto existe
+        if (updatedUser.contactos.includes(contactId)) {
+            console.log('Contacto ya existe')
+            setContactError(true)
+            setFormError('Ya es tu contacto')
+            return
+        }
+
+        updatedUser.contactos.push(searchFilter[0]._id) // Agrega el ID del nuevo contacto al arreglo de contactos
+
+        console.log(updatedUser)
+
+        addContact(user._id, updatedUser)
+            .then((response) => {
+                console.log(response)
+                closePopup()
+                setFormSuccess('Contacto agregado')
+                getChats()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     return (

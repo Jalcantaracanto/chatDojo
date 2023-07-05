@@ -24,7 +24,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
         getUser(userId)
             .then((response) => {
                 setUserData(response.data.user)
-                console.log(response.data.user)
+                // console.log(response.data.user)
             })
             .catch((error) => {
                 console.log(error)
@@ -34,7 +34,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
     const getMessagesData = () => {
         getMessages(chat._id)
             .then((response) => {
-                console.log(response.data.message)
+                // console.log(response.data.message)
                 setMessages(response.data.message)
             })
             .catch((error) => {
@@ -48,7 +48,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
 
     useEffect(() => {
         if (chat !== null) getMessagesData()
-        console.log(chat)
+        // console.log(chat)
     }, [chat])
 
     const handleChange = (text) => {
@@ -104,15 +104,15 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                         {/* Chatbox Messages */}
                         <div className="chatbox-message">
                             {messages.map((message, index) => (
-                                <>
+                                <div key={index}>
                                     <div ref={scroll}></div>
-                                    <div key={index} className={message.senderId === currentUser ? 'message own' : 'message'}>
+                                    <div  className={message.senderId === currentUser ? 'message own' : 'message'}>
                                         <span>{message.text}</span>
                                         {/* <div>
                                         <span>{format(message.createdAt)}</span>
                                     </div> */}
                                     </div>
-                                </>
+                                </div>
                             ))}
                         </div>
                         {/* chat sender*/}

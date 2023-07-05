@@ -16,7 +16,7 @@ import ChatIcon from '@mui/icons-material/Chat'
 import PeopleIcon from '@mui/icons-material/People'
 import { Navbar } from '../components/Navbar'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 export const Chat = () => {
     const [chats, setChats] = useState([])
@@ -48,12 +48,15 @@ export const Chat = () => {
     }, [sendMessage])
 
     useEffect(() => {
-        socketRef.current = io(':8080')
-        socketRef.current.emit('newUser', usuario.id)
-        socketRef.current.on('getUsers', (users) => {
-            setOnlineUsers([...users])
-            console.log(users)
-        })
+        if (usuario) {
+            console.log(usuario.id)
+            socketRef.current = io(':8080')
+            socketRef.current.emit('newUser', usuario.id)
+            socketRef.current.on('getUsers', (users) => {
+                setOnlineUsers([...users])
+                console.log(users)
+            })
+        }
 
         return () => {
             socketRef.current.disconnect()
@@ -63,6 +66,7 @@ export const Chat = () => {
     //Recibir mensaje del socket server
     useEffect(() => {
         socketRef.current.on('receiveMessage', (data) => {
+            console.log(data)
             setReceiveMessage(data)
         })
     }, [])
@@ -104,7 +108,7 @@ export const Chat = () => {
                         <PersonAddIcon onClick={() => setIsPopupOpen(true)} className="add-contact-icon" />
                         {isPopupOpen && (
                             <div className="popup">
-                                <SearchContact closePopup={closePopup} getChats={getChats}/>
+                                <SearchContact closePopup={closePopup} getChats={getChats} />
                             </div>
                         )}
 
@@ -126,10 +130,8 @@ export const Chat = () => {
                                 <div className="Chat-container">
                                     <div className="Chat-list">
                                         {chats.map((chat, index) => (
-                                            
                                             <div key={index} onClick={() => setCurrentChat(chat)}>
                                                 <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
-                                                
                                             </div>
                                         ))}
                                     </div>

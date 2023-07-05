@@ -45,13 +45,19 @@ export const Chat = () => {
         if (sendMessage !== null) {
             socketRef.current.emit('sendMessage', sendMessage)
         }
-    }, [sendMessage])
+    }, [sendMessage, usuario])
 
     useEffect(() => {
         if (usuario) {
-            console.log(usuario.id)
             socketRef.current = io(':8080')
-            socketRef.current.emit('newUser', usuario.id)
+
+            socketRef.current.on('connect', () => {
+                console.log(socketRef.current.id)
+                socketRef.current.emit('newUser', usuario.id)
+                localStorage.setItem('userId', usuario.id)
+                localStorage.setItem('socketId', socketRef.current.id)
+            })
+
             socketRef.current.on('getUsers', (users) => {
                 setOnlineUsers([...users])
                 console.log(users)
@@ -69,7 +75,7 @@ export const Chat = () => {
             console.log(data)
             setReceiveMessage(data)
         })
-    }, [])
+    }, [usuario])
 
     useEffect(() => {
         const storedUserId = localStorage.getItem('userId')

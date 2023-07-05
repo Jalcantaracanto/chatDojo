@@ -88,17 +88,17 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                 {chat ? (
                     <>
                         <div className="chat-header">
-                                <div className="follower">
-                                    <div className="online-dot">
-                                        <div className="follower-info">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} />
-                                            <div className="name" style={{ fontSize: '0.8rem' }}>
-                                                <span>{userData?.nickname} </span>
-                                            </div>
+                            <div className="follower">
+                                <div className="online-dot">
+                                    <div className="follower-info">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} />
+                                        <div className="name" style={{ fontSize: '0.8rem' }}>
+                                            <span>{userData?.nickname} </span>
                                         </div>
                                     </div>
                                 </div>
-                            
+                            </div>
+
                             <hr style={{ width: '85%', border: '0.1px solid #ececec' }} />
                         </div>
                         {/* Chatbox Messages */}
@@ -106,12 +106,12 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                             {messages.map((message, index) => (
                                 <div key={index}>
                                     <div ref={scroll}></div>
-                                    <div  className={message.senderId === currentUser ? 'message own' : 'message'}>
+                                    <div className={message.senderId === currentUser ? 'message own' : 'message'}>
                                         <span>{message.text}</span>
-                                        {/* <div>
+                                    </div>
+                                    {/* <div>
                                         <span>{format(message.createdAt)}</span>
                                     </div> */}
-                                    </div>
                                 </div>
                             ))}
                         </div>

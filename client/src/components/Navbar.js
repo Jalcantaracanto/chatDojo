@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/UserProvider'
 import Cookies from 'js-cookie'
-import { logout } from '../services/user.service'
+import { logout, getUser } from '../services/user.service'
 import { useNavigate } from 'react-router-dom'
 
 // Material UI
@@ -19,17 +19,37 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset'
+import { set } from 'mongoose'
 
 // const pages = ['Products', 'Pricing', 'Blog']
 const settings = ['Profile', 'Logout']
 
 export const Navbar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null)
-    const [anchorElUser, setAnchorElUser] = React.useState(null)
+    const [anchorElNav, setAnchorElNav] = useState(null)
+    const [anchorElUser, setAnchorElUser] = useState(null)
+    const [user, setUser] = useState(null)
 
     const { usuario, clearLocalStorage } = useContext(UserContext)
     console.log(usuario)
     const navigate = useNavigate()
+
+    const getUserFromService = () => {
+        getUser(usuario.id)
+            .then((response) => {
+                console.log(response)
+                setUser(response.data.user)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const corteImagen = () => {
+        const ruta = user.imagen.path
+        const cortar = ruta.split('\\').slice(-1)[0]
+
+        return cortar
+    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -58,6 +78,10 @@ export const Navbar = () => {
                 console.log(error)
             })
     }
+
+    useEffect(() => {
+        getUserFromService()
+    }, [])
 
     return (
         <AppBar position="static" /* sx={{ backgroundColor: 'blue' }} */>
@@ -141,9 +165,8 @@ export const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                {usuario && (
-                                    <Avatar>{usuario?.nickname?.[0]}</Avatar>
-                                )}
+                                {/* {usuario && <Avatar>{user?.nickname?.[0]}</Avatar>} */}
+                                {usuario && <Avatar src={`http://localhost:8080/${corteImagen()}`}></Avatar>}
                             </IconButton>
                         </Tooltip>
                         <Menu

@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserProvider';
 import { getUser, updateUser } from '../services/user.service';
 import { Typography, Button, Container, Grid, TextField } from '@mui/material';
 
-export const Update = () => {
+export const Update = ({handleCloseUpdatePopup}) => {
     const [user, setUser] = useState({});
 
     const { usuario } = useContext(UserContext);
@@ -31,6 +31,7 @@ export const Update = () => {
         updateUser(usuario.id, data)
             .then((res) => {
                 console.log(res);
+                handleCloseUpdatePopup()
             })
             .catch((err) => {
                 console.log(err);

@@ -31,7 +31,13 @@ export const Navbar = () => {
     const [anchorElUser, setAnchorElUser] = useState(null)
     const [user, setUser] = useState(null)
     const [showInitial, setShowInitial] = useState(false)
+
+    //popup 
     const [openUpdatePopup, setOpenUpdatePopup] = useState(false);
+    const handleCloseUpdatePopup = () => {
+        setOpenUpdatePopup(false);
+      };
+    
 
 
     const { usuario, clearLocalStorage } = useContext(UserContext)
@@ -248,7 +254,7 @@ export const Navbar = () => {
                 </Toolbar>
             </Container>
             <Dialog open={openUpdatePopup} onClose={() => setOpenUpdatePopup(false)}>
-                <Update onClose={() => setOpenUpdatePopup(false)} />
+                <Update onClose={() => setOpenUpdatePopup(false)} handleCloseUpdatePopup={handleCloseUpdatePopup} />
             </Dialog>
         </AppBar>
     )

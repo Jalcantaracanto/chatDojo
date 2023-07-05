@@ -38,8 +38,7 @@ export const Register = ({checkFalse}) => {
         email: '',
         password: '',
         confirmPassword: '',
-        admin: false,
-        biografia: '',
+        imagen: {}
 
     });
     //ERROR

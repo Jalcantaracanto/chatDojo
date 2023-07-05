@@ -7,8 +7,6 @@ const path = require('path')
 const server = require('http').createServer(app)
 const { socketEvents } = require('./server/controllers/socket.controller')
 
-
-
 require('./server/config/mongoose.config')
 require('dotenv').config()
 
@@ -16,6 +14,9 @@ app.use(cookieParser())
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+//Mostrar imagenes como ruta
+app.use('/', express.static(path.join(__dirname, 'server/uploads')))
 
 // Importar rutas
 require('./server/routes/user.routes')(app)

@@ -23,6 +23,9 @@ const UserSchema = new Schema(
             type: Array,
             default: [],
         },
+        imagen: {
+            type: {},
+        },
     },
     { timestamps: true }
 )

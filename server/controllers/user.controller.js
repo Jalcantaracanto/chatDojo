@@ -67,16 +67,19 @@ module.exports.findAllUsers = (req, res) => {
 }
 
 module.exports.updateUser = (req, res) => {
-    User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-        .then((updatedUser) => res.json({ user: updatedUser }))
-        .catch((err) => res.json({ message: 'Error al actualizar usuario', error: err }))
+    // const { nickname } = req.body
+    const imagen = req.file
+
+    User.findOneAndUpdate({ _id: req.params.id }, { /* nickname,*/ imagen }, { new: true })
+        .then((updatedUser) => {
+            res.json({ user: updatedUser })
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).json({ message: 'Error al actualizar usuario', error: err })
+        })
 }
 
-/* module.exports.deleteUser = (req, res) => {
-    User.deleteOne({ _id: req.params.id })
-        .then((user) => res.json({ user: user }))
-        .catch((err) => res.json({ error: err }))
-} */
 module.exports.deleteUser = (req, res) => {
     const userId = req.params.id
 
@@ -95,25 +98,6 @@ module.exports.findUserByEmail = (req, res) => {
         .then((user) => res.json({ user }))
         .catch((err) => res.json({ message: 'Error al buscar usuario', error: err }))
 }
-
-// module.exports.addContact = (req, res) => {
-//     console.log(req.body)
-//     const contactId = req.body.contactos[req.body.contactos.length - 1]
-
-//     User.findOneAndUpdate({ _id: req.params.id, contactos: { $ne: req.body.contactos } }, { $push: { contactos: contactId } }, { new: true })
-//         .then((updatedUser) => {
-//             // Llama a createChat pasando los IDs
-//             Chat.create({ members: [req.params.id, contactId] })
-//                 .then((result) => {
-//                     res.status(200).json({ chat: result })
-//                 })
-//                 .catch((error) => {
-//                     console.error(error)
-//                     res.status(500).json({ error: error })
-//                 })
-//         })
-//         .catch((err) => res.json({ message: 'Error al actualizar usuario', error: err }))
-// }
 
 module.exports.addContact = (req, res) => {
     console.log(req.body)

@@ -76,23 +76,19 @@ export const SearchContact = ({ closePopup, getChats }) => {
         setSearchFilter(filteredUsers)
     }
 
-    const addContactFromService = () => {
-        const contactId = searchFilter[0]._id
+    const addContactFromService = (index) => {
+        const contact = searchFilter[index]
+        const contactId = contact._id
 
-        const updatedUser = { ...user } // Copia el objeto de usuario actual
-
-        //No hace push contacto existe
+        const updatedUser = { ...user }
         if (updatedUser.contactos.includes(contactId)) {
             console.log('Contacto ya existe')
             setContactError(true)
-            /* setFormError('Ya es tu contacto') */
-            setFormError('Ya tiendes un chat')
+            setFormError('Ya es tu contacto')
             return
         }
 
-        updatedUser.contactos.push(searchFilter[0]._id) // Agrega el ID del nuevo contacto al arreglo de contactos
-
-        console.log(updatedUser)
+        updatedUser.contactos.push(contactId)
 
         addContact(user._id, updatedUser)
             .then((response) => {

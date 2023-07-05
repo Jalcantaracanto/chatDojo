@@ -28,28 +28,34 @@ export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState(null)
     const [anchorElUser, setAnchorElUser] = useState(null)
     const [user, setUser] = useState(null)
+    const [showInitial, setShowInitial] = useState(false)
 
     const { usuario, clearLocalStorage } = useContext(UserContext)
     console.log(usuario)
     const navigate = useNavigate()
 
     const getUserFromService = () => {
-        getUser(usuario.id)
-            .then((response) => {
-                console.log(response)
-                setUser(response.data.user)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        if (usuario) {
+            getUser(usuario.id)
+                .then((response) => {
+                    console.log(response)
+                    setUser(response.data.user)
+                    response.data.user?.imagen?.path ? setShowInitial(true) : setShowInitial(false)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }
 
     const corteImagen = () => {
-        const ruta = user.imagen.path
-        const cortar = ruta.split('\\').slice(-1)[0]
+        const ruta = user?.imagen?.path
+        const cortar = ruta?.split('\\').slice(-1)[0]
 
         return cortar
     }
+
+    console.log(corteImagen())
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -81,7 +87,7 @@ export const Navbar = () => {
 
     useEffect(() => {
         getUserFromService()
-    }, [])
+    }, [usuario])
 
     return (
         <AppBar position="static" /* sx={{ backgroundColor: 'blue' }} */>
@@ -166,7 +172,7 @@ export const Navbar = () => {
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 {/* {usuario && <Avatar>{user?.nickname?.[0]}</Avatar>} */}
-                                {usuario && <Avatar src={`http://localhost:8080/${corteImagen()}`}></Avatar>}
+                                {showInitial === true ? <Avatar src={`http://localhost:8080/${corteImagen()}`} /> : <Avatar>{user?.nickname?.[0]}</Avatar>}
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -219,3 +225,5 @@ export const Navbar = () => {
         </AppBar>
     )
 }
+
+export default Navbar

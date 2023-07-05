@@ -1,6 +1,7 @@
 const User = require('../models/user.models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Chat = require('../models/chat.models')
 
 module.exports.register = (req, res) => {
     User.create(req.body)
@@ -77,19 +78,17 @@ module.exports.updateUser = (req, res) => {
         .catch((err) => res.json({ error: err }))
 } */
 module.exports.deleteUser = (req, res) => {
-    const userId = req.params.id;
+    const userId = req.params.id
 
     User.deleteOne({ _id: userId })
         .then(() => {
             // Eliminar al usuario eliminado de la lista de contactos de los demás usuarios
             User.updateMany({ contactos: userId }, { $pull: { contactos: userId } })
                 .then(() => res.json({ msg: 'Usuario eliminado correctamente' }))
-                .catch((err) => res.status(500).json({ error: err }));
+                .catch((err) => res.status(500).json({ error: err }))
         })
-        .catch((err) => res.status(500).json({ error: err }));
-};
-
-
+        .catch((err) => res.status(500).json({ error: err }))
+}
 
 module.exports.findUserByEmail = (req, res) => {
     User.findOne({ email: req.params.email })
@@ -98,13 +97,19 @@ module.exports.findUserByEmail = (req, res) => {
 }
 
 module.exports.addContact = (req, res) => {
-    User.findOneAndUpdate(
-        { _id: req.params.id, contactos: { $ne: req.body.contactos } }, // Evita duplicados usando $ne
-        { $push: { contactos: req.body.contactos } },
-        { new: true }
-    )
-        .then((updatedUser) => res.json({ user: updatedUser }))
+    console.log(req.body)
+    User.findOneAndUpdate({ _id: req.params.id, contactos: { $ne: req.body.contactos } }, { $push: { contactos: req.body.contactos } }, { new: true })
+        .then((updatedUser) => {
+            // Llama a createChat pasando los IDs
+            Chat.create({ members: [req.params.id, req.body.contactos] })
+
+                .then((result) => {
+                    res.status(200).json({ chat: result })
+                })
+                .catch((error) => {
+                    console.error(error)
+                    res.status(500).json({ error: error })
+                })
+        })
         .catch((err) => res.json({ message: 'Error al actualizar usuario', error: err }))
 }
-
-

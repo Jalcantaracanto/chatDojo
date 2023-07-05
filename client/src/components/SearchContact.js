@@ -15,23 +15,23 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import AddIcon from '@mui/icons-material/Add'
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelIcon from '@mui/icons-material/Cancel'
 import Alert from '@mui/material/Alert'
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
 }))
 
-export const SearchContact = ({ closePopup }) => {
+export const SearchContact = ({ closePopup, getChats }) => {
     const [dense, setDense] = useState(false)
     const [users, setUsers] = useState([])
     const [searchFilter, setSearchFilter] = useState([])
     const [user, setUser] = useState()
 
     // Error and success messages
-    const [ contactErorr, setContactError ] = useState(false)
-    const [ formError, setFormError ] = useState()
-    const [ formSuccess, setFormSuccess ] = useState()
+    const [contactErorr, setContactError] = useState(false)
+    const [formError, setFormError] = useState()
+    const [formSuccess, setFormSuccess] = useState()
 
     const { usuario } = useContext(UserContext)
 
@@ -75,35 +75,25 @@ export const SearchContact = ({ closePopup }) => {
         })
         setSearchFilter(filteredUsers)
     }
+    
 
+    
     const addContactFromService = () => {
         const contactId = searchFilter[0]._id
 
-        const updatedUser = { ...user } // Copia el objeto de usuario actual
+        console.log(contactId)
+        console.log(user._id)
 
-        //No hace push contacto existe
-        if (updatedUser.contactos.includes(contactId)) {
-            console.log('Contacto ya existe')
-            setContactError(true)
-            setFormError('Ya es tu contacto')
-            return
-        }
-
-        updatedUser.contactos.push(searchFilter[0]._id) // Agrega el ID del nuevo contacto al arreglo de contactos
-
-        addContact(user._id, updatedUser)
-            .then((response) => {
-                console.log(response)
-                closePopup()
-                setFormSuccess('Contacto agregado')
-            })
-            .catch((error) => {
-                console.log(error)
-                
-            })
+        // addContact(usuario.id, contactId)
+        //     .then((response) => {
+        //         closePopup()
+        //         setFormSuccess('Contacto agregado')
+        //         getChats()
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     })
     }
-
-
 
     return (
         <>

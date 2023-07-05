@@ -1,9 +1,10 @@
 const Chat = require('../models/chat.models')
 
 module.exports.createChat = (req, res) => {
+    console.log(req.body)
     Chat.create({ members: [req.body.senderId, req.body.receiverId] })
         .then((result) => {
-            res.json({ chat: result })
+            res.status(200).json({ chat: result })
         })
         .catch((error) => {
             console.error(error)

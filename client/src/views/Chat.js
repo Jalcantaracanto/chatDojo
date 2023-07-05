@@ -104,7 +104,7 @@ export const Chat = () => {
                         <PersonAddIcon onClick={() => setIsPopupOpen(true)} className="add-contact-icon" />
                         {isPopupOpen && (
                             <div className="popup">
-                                <SearchContact closePopup={closePopup} />
+                                <SearchContact closePopup={closePopup} getChats={getChats}/>
                             </div>
                         )}
 
@@ -131,8 +131,6 @@ export const Chat = () => {
                                                 <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
                                                 
                                             </div>
-                                            
-                                            
                                         ))}
                                     </div>
                                 </div>

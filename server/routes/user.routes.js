@@ -8,5 +8,5 @@ module.exports = (app) => {
     app.get('/users', findAllUsers)
     app.put('/user/:id', updateUser)
     app.delete('/user/:id', deleteUser)
-    app.put('/user/:id', addContact)
+    app.put('/user/addContact/:id', addContact)
 }

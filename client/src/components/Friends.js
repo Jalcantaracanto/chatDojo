@@ -9,9 +9,14 @@ import { io } from 'socket.io-client';
 
 
 export const Friends = () => {
-    const [user, setUser] = useState({})
-    const [contactNames, setContactNames] = useState([]) // Array de nombres de contactos
     const { usuario } = useContext(UserContext)
+    const [user, setUser] = useState({
+        _id: usuario.id,
+        nickname: usuario.nickname,
+        email: usuario.email,
+        contactos: []
+    })
+    const [contactNames, setContactNames] = useState([]) // Array de nombres de contactos
     const userId = usuario.id
 
     const [socket] = useState(() => io(':8080'))

@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar'
 
 export const Conversation = ({ data, currentUserId, online, getChats }) => {
     const [userData, setUserData] = useState(null)
+    const [showInitial, setShowInitial] = useState(false)
 
     const getUserData = () => {
         const userId = data.members.find((id) => id !== currentUserId)
@@ -17,6 +18,7 @@ export const Conversation = ({ data, currentUserId, online, getChats }) => {
             .then((response) => {
                 setUserData(response.data.user)
                 //console.log(response.data.user)
+                response.data.user?.imagen?.path ? setShowInitial(true) : setShowInitial(false)
             })
             .catch((error) => {
                 console.log(error)
@@ -27,6 +29,22 @@ export const Conversation = ({ data, currentUserId, online, getChats }) => {
         getUserData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+      //windows
+    /* const corteImagen = () => {
+        const ruta = user?.imagen?.path
+        const cortar = ruta?.split('\\').slice(-1)[0]
+
+        return cortar
+    } */
+
+    //mac
+    const corteImagen = () => {
+        const ruta = userData?.imagen?.path;
+        const cortar = ruta?.split('/').slice(-1)[0];
+      
+        return cortar;
+      };
 
     const removeChat = () => {
         deleteChat(data._id)
@@ -47,7 +65,8 @@ export const Conversation = ({ data, currentUserId, online, getChats }) => {
                     <div>
                         <div /* className="online-dot" */ style={{ display: 'flex', justifyContent: 'space-beetween', alignContent: 'center', gap: '20px' }} >
                             {/* {online && <div className="online-dot">Online</div>} */}
-                            <Avatar>{userData?.nickname[0]}</Avatar>   
+                            {/* <Avatar>{userData?.nickname[0]}</Avatar>   */}
+                            {showInitial === true ? <Avatar src={`http://localhost:8080/${corteImagen()}`} /> : <Avatar>{userData?.nickname?.[0]}</Avatar>} 
                             {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} /> */}
                             <div className="name" style={{ fontSize: '1rem' }}>
                                 <span>{userData?.nickname} </span>

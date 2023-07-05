@@ -47,13 +47,21 @@ export const Navbar = () => {
                 })
         }
     }
-
-    const corteImagen = () => {
+//windows
+    /* const corteImagen = () => {
         const ruta = user?.imagen?.path
         const cortar = ruta?.split('\\').slice(-1)[0]
 
         return cortar
-    }
+    } */
+
+    //mac
+    const corteImagen = () => {
+        const ruta = user?.imagen?.path;
+        const cortar = ruta?.split('/').slice(-1)[0];
+      
+        return cortar;
+      };
 
     console.log(corteImagen())
 

@@ -13,6 +13,7 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
     const [messages, setMessages] = useState([])
     const [newMessage, setnewMessage] = useState('')
     const scroll = useRef()
+    const [showInitial, setShowInitial] = useState(false)
 
     useEffect(() => {
         if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
@@ -25,12 +26,29 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
         getUser(userId)
             .then((response) => {
                 setUserData(response.data.user)
-                // console.log(response.data.user)
+                console.log(response.data.user)
+                response.data.user?.imagen?.path ? setShowInitial(true) : setShowInitial(false)
             })
             .catch((error) => {
                 console.log(error)
             })
     }
+
+    //windows
+    /* const corteImagen = () => {
+        const ruta = user?.imagen?.path
+        const cortar = ruta?.split('\\').slice(-1)[0]
+
+        return cortar
+    } */
+
+    //mac
+    const corteImagen = () => {
+        const ruta = userData?.imagen?.path;
+        const cortar = ruta?.split('/').slice(-1)[0];
+      
+        return cortar;
+      };
 
     const getMessagesData = () => {
         getMessages(chat._id)
@@ -93,7 +111,8 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                                 <div className="online-dot">
                                     <div className="follower-info">
                                         {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} /> */}
-                                        <Avatar>{userData?.nickname[0]}</Avatar> 
+                                        {/* <Avatar>{userData?.nickname[0]}</Avatar>  */}
+                                        {showInitial === true ? <Avatar src={`http://localhost:8080/${corteImagen()}`} /> : <Avatar>{userData?.nickname?.[0]}</Avatar>}
                                         <div className="name" style={{ fontSize: '0.8rem' }}>
                                             <span>{userData?.nickname} </span>
                                         </div>

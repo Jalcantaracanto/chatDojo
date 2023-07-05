@@ -28,6 +28,7 @@ export const Navbar = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null)
 
     const { usuario, clearLocalStorage } = useContext(UserContext)
+    console.log(usuario)
     const navigate = useNavigate()
 
     const handleOpenNavMenu = (event) => {
@@ -140,7 +141,9 @@ export const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar>{usuario.nickname[0]}</Avatar> 
+                                {usuario && (
+                                    <Avatar>{usuario?.nickname?.[0]}</Avatar>
+                                )}
                             </IconButton>
                         </Tooltip>
                         <Menu

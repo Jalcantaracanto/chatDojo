@@ -6,6 +6,7 @@ import InputEmoji from 'react-input-emoji'
 import { addMessage } from '../services/message.service'
 import './chatBox.css'
 import { Paper } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
 
 export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     const [userData, setUserData] = useState(null)
@@ -91,7 +92,8 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                             <div className="follower">
                                 <div className="online-dot">
                                     <div className="follower-info">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} />
+                                        {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} /> */}
+                                        <Avatar>{userData?.nickname[0]}</Avatar> 
                                         <div className="name" style={{ fontSize: '0.8rem' }}>
                                             <span>{userData?.nickname} </span>
                                         </div>
@@ -102,9 +104,9 @@ export const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) =
                             <hr style={{ width: '85%', border: '0.1px solid #ececec' }} />
                         </div>
                         {/* Chatbox Messages */}
-                        <div className="chatbox-message">
+                        <div className="chatbox">
                             {messages.map((message, index) => (
-                                <div key={index}>
+                                <div key={index} className="chatbox-message" >
                                     <div ref={scroll}></div>
                                     <div className={message.senderId === currentUser ? 'message own' : 'message'}>
                                         <span>{message.text}</span>

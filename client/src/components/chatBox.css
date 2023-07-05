@@ -22,14 +22,20 @@
     height: 100%;
 }
 
+.chatbox{
+    overflow: auto;
+    overflow-y: auto;
+    max-height: 60vh;
+    
+}
 .chatbox-message {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 1.5rem;
-    overflow: auto;
-    overflow-y: auto;
+    /* overflow: auto;
+    overflow-y: auto; */
     max-height: 50vh;
 }
 

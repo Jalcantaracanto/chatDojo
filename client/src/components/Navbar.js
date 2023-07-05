@@ -3,6 +3,7 @@ import { UserContext } from '../context/UserProvider'
 import Cookies from 'js-cookie'
 import { logout, getUser } from '../services/user.service'
 import { useNavigate } from 'react-router-dom'
+import { Update } from './Update'
 
 // Material UI
 import AppBar from '@mui/material/AppBar'
@@ -20,15 +21,18 @@ import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset'
 import { set } from 'mongoose'
+import { Dialog } from '@mui/material'
 
 // const pages = ['Products', 'Pricing', 'Blog']
-const settings = ['Profile', 'Logout']
+const settings = ['Profile', 'Subir Imagen', 'Logout']
 
 export const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState(null)
     const [anchorElUser, setAnchorElUser] = useState(null)
     const [user, setUser] = useState(null)
     const [showInitial, setShowInitial] = useState(false)
+    const [openUpdatePopup, setOpenUpdatePopup] = useState(false);
+
 
     const { usuario, clearLocalStorage } = useContext(UserContext)
     console.log(usuario)
@@ -47,7 +51,7 @@ export const Navbar = () => {
                 })
         }
     }
-//windows
+    //windows
     /* const corteImagen = () => {
         const ruta = user?.imagen?.path
         const cortar = ruta?.split('\\').slice(-1)[0]
@@ -59,9 +63,9 @@ export const Navbar = () => {
     const corteImagen = () => {
         const ruta = user?.imagen?.path;
         const cortar = ruta?.split('/').slice(-1)[0];
-      
+
         return cortar;
-      };
+    };
 
     console.log(corteImagen())
 
@@ -79,6 +83,10 @@ export const Navbar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
+
+    const handleOpenUpdatePopup = () => {
+        setOpenUpdatePopup(true);
+    };
 
     //LOGOUT
     const desconectar = () => {
@@ -218,7 +226,16 @@ export const Navbar = () => {
                                             <Typography textAlign="center">{setting}</Typography>
                                         </MenuItem>
                                     )
-                                } else {
+                                }
+                                if (setting === 'Subir Imagen') {
+                                    return (
+                                        <MenuItem key={setting} onClick={handleOpenUpdatePopup}>
+                                            <Typography textAlign="center">{setting}</Typography>
+                                        </MenuItem>
+
+                                    )
+                                }
+                                else {
                                     return (
                                         <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">{setting}</Typography>
@@ -230,6 +247,9 @@ export const Navbar = () => {
                     </Box>
                 </Toolbar>
             </Container>
+            <Dialog open={openUpdatePopup} onClose={() => setOpenUpdatePopup(false)}>
+                <Update onClose={() => setOpenUpdatePopup(false)} />
+            </Dialog>
         </AppBar>
     )
 }

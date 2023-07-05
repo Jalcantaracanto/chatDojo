@@ -173,7 +173,12 @@ export const Chat = () => {
                 {/* right side  */}
                 <Paper elevation={3} style={{ padding: '10px' }}>
                     <div className="Right-side-chat">
-                        <ChatBox chat={currentChat} currentUser={usuario.id} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
+                        {/* <ChatBox chat={currentChat} currentUser={usuario.id} setSendMessage={setSendMessage} receiveMessage={receiveMessage} /> */}
+                        {currentChat ? (
+                            <ChatBox chat={currentChat} currentUser={usuario.id} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
+                        ) : (
+                            <p>No se ha seleccionado ninguna conversación.</p>
+                        )}
                     </div>
                 </Paper>
             </div>

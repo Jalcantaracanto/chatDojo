@@ -119,7 +119,7 @@ export const SearchContact = ({ closePopup, getChats }) => {
                                     .map((value, index) => (
                                         <ListItem
                                             secondaryAction={
-                                                <IconButton edge="end" aria-label="delete" onClick={addContactFromService}>
+                                                <IconButton edge="end" aria-label="delete" onClick={() => addContactFromService(index)}>
                                                     <AddIcon />
                                                 </IconButton>
                                             }

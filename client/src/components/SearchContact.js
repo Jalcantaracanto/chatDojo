@@ -125,9 +125,7 @@ export const SearchContact = ({ closePopup, getChats }) => {
                                             }
                                             key={index}
                                         >
-                                            <ListItemAvatar>
-                                                <Avatar alt="avatar" src="https://img.freepik.com/vector-premium/perfil-avatar-hombre-icono-redondo_24640-14044.jpg?w=2000" sx={{ width: 56, height: 56 }} />
-                                            </ListItemAvatar>
+                                            <Avatar alt="avatar" src="https://img.freepik.com/vector-premium/perfil-avatar-hombre-icono-redondo_24640-14044.jpg?w=2000" sx={{ width: 56, height: 56 }} />
                                             <ListItemText primary={value.nickname} />
                                         </ListItem>
                                     ))

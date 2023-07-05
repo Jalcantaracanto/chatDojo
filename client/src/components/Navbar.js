@@ -18,7 +18,7 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
-import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
+import VideogameAssetIcon from '@mui/icons-material/VideogameAsset'
 
 // const pages = ['Products', 'Pricing', 'Blog']
 const settings = ['Profile', 'Logout']
@@ -45,7 +45,6 @@ export const Navbar = () => {
         setAnchorElUser(null)
     }
 
-
     //LOGOUT
     const desconectar = () => {
         logout()
@@ -58,8 +57,6 @@ export const Navbar = () => {
                 console.log(error)
             })
     }
-
-
 
     return (
         <AppBar position="static" /* sx={{ backgroundColor: 'blue' }} */>
@@ -133,7 +130,7 @@ export const Navbar = () => {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                       {/*  {pages.map((page) => (
+                        {/*  {pages.map((page) => (
                             <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                                 {page}
                             </Button>
@@ -143,7 +140,7 @@ export const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" /* src="/static/images/avatar/2.jpg"  *//>
+                                <Avatar>{usuario.nickname[0]}</Avatar> 
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -173,21 +170,20 @@ export const Navbar = () => {
                                         <MenuItem key={setting} onClick={desconectar}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </MenuItem>
-                                    );
-                                    
-                                } if (setting === 'Profile') {
+                                    )
+                                }
+                                if (setting === 'Profile') {
                                     return (
-                                        <MenuItem key={setting} onClick={() => navigate(`/profile/${usuario.id}`)} >
+                                        <MenuItem key={setting} onClick={() => navigate(`/profile/${usuario.id}`)}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </MenuItem>
-                                    )                          
-                                }
-                                else {
+                                    )
+                                } else {
                                     return (
                                         <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </MenuItem>
-                                    );
+                                    )
                                 }
                             })}
                         </Menu>

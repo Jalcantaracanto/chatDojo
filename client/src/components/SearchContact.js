@@ -85,7 +85,8 @@ export const SearchContact = ({ closePopup, getChats }) => {
         if (updatedUser.contactos.includes(contactId)) {
             console.log('Contacto ya existe')
             setContactError(true)
-            setFormError('Ya es tu contacto')
+            /* setFormError('Ya es tu contacto') */
+            setFormError('Ya tiendes un chat')
             return
         }
 
@@ -143,7 +144,7 @@ export const SearchContact = ({ closePopup, getChats }) => {
                 <IconButton className="popup-close-button" edge="end" aria-label="close" onClick={closePopup}>
                     <CancelIcon />
                 </IconButton>
-                {contactErorr && <Alert severity="error">{formError}</Alert>}
+                {contactErorr && <Alert severity="warning">{formError}</Alert>}
                 {formSuccess && <Alert severity="success">{formSuccess}</Alert>}
             </Box>
         </>

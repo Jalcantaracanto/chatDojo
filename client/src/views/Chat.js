@@ -99,9 +99,9 @@ export const Chat = () => {
             <div className="Chat">
                 <div className="Left-side-chat">
                     <Paper elevation={3} style={{ padding: '10px' }}>
-                        {checked ? <Chip icon={<PeopleIcon />} label="Chats/Friends" color="primary" variant="outlined" /> : <Chip icon={<ChatIcon />} label="Chats/Friends" color="primary" variant="outlined" />}
+                        {checked ? <Chip icon={<PeopleIcon />} label="Chats/Friends" color="primary" variant="outlined" /> : <Chip icon={<ChatIcon />} label="Chats" color="primary" variant="outlined" />}
                         <br />
-                        <Switch checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />
+                        {/* <Switch checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} /> */}
 
                         <br />
                         {/* <AddCircleIcon /> */}

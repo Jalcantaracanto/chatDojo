@@ -50,7 +50,7 @@ export const Conversation = ({ data, currentUserId, online, getChats}) => {
                             {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} /> */}
                             <div className="name" style={{ fontSize: '1rem' }}>
                                 <span>{userData?.nickname} </span>
-                                <span style={{color: online?"#51e200":""}}>{online? "Online" : "Offline"}</span>                                
+                                <span style={{color: online?"#51e200":"grey"}}>{online? "Online" : "Offline"}</span>                                
                             </div>
                             <span onClick={removeChat}  ><DeleteForeverIcon/></span>
                         </div>

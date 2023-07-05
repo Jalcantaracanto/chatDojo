@@ -20,7 +20,7 @@ import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 
-const pages = ['Products', 'Pricing', 'Blog']
+// const pages = ['Products', 'Pricing', 'Blog']
 const settings = ['Profile', 'Logout']
 
 export const Navbar = () => {
@@ -62,7 +62,7 @@ export const Navbar = () => {
 
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" /* sx={{ backgroundColor: 'blue' }} */>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <VideogameAssetIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -106,11 +106,11 @@ export const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
+                            {/* {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -133,11 +133,11 @@ export const Navbar = () => {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                       {/*  {pages.map((page) => (
                             <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                                 {page}
                             </Button>
-                        ))}
+                        ))} */}
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>

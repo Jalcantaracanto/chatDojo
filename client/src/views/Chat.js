@@ -71,6 +71,30 @@ export const Chat = () => {
         })
     }, [])
 
+    useEffect(() => {
+        const storedUserId = localStorage.getItem('userId')
+        const storedSocketId = localStorage.getItem('socketId')
+
+        if (storedUserId && storedSocketId) {
+            const socket = io.connect({ query: { userId: storedUserId } })
+            socket.on('connect', () => {
+                socket.emit('newUser', storedUserId)
+                // Otros eventos y lógica de la aplicación
+            })
+        } else {
+            const socket = io.connect()
+            // Eventos y lógica de la aplicación
+        }
+
+        return () => {
+            // Cleanup: Antes de desmontar el componente, puedes almacenar la información de conexión actual
+            const socket = io()
+            localStorage.setItem('userId', socket.userId)
+            localStorage.setItem('socketId', socket.id)
+            socket.disconnect()
+        }
+    }, [])
+
     const getChats = () => {
         userChats(usuario.id)
             .then((response) => {
@@ -131,7 +155,7 @@ export const Chat = () => {
                                     <div className="Chat-list">
                                         {chats.map((chat, index) => (
                                             <div key={index} onClick={() => setCurrentChat(chat)}>
-                                                <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} getChats={getChats}/>
+                                                <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} getChats={getChats} />
                                             </div>
                                         ))}
                                     </div>

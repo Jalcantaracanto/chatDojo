@@ -50,11 +50,13 @@ export const SearchContact = ({ closePopup, getChats }) => {
         getUsers()
             .then((response) => {
                 setUsers(response.data.users)
+               
             })
             .catch((error) => {
                 console.log(error)
             })
     }
+   
 
     useEffect(() => {
         getAllUsersFromService()
@@ -112,23 +114,34 @@ export const SearchContact = ({ closePopup, getChats }) => {
                         </Stack>
                     </Box>
                     <Demo>
-                        <List dense={dense}>
+                    <List dense={dense}>
                             {searchFilter.length > 0 ? (
                                 searchFilter
                                     .sort((a, b) => a.nickname.localeCompare(b.nickname)) // Ordena los elementos por el nickname
-                                    .map((value, index) => (
-                                        <ListItem
-                                            secondaryAction={
-                                                <IconButton edge="end" aria-label="delete" onClick={() => addContactFromService(index)}>
-                                                    <AddIcon />
-                                                </IconButton>
-                                            }
-                                            key={index}
-                                        >
-                                            <Avatar alt="avatar" src="https://img.freepik.com/vector-premium/perfil-avatar-hombre-icono-redondo_24640-14044.jpg?w=2000" sx={{ width: 56, height: 56 }} />
-                                            <ListItemText primary={value.nickname} />
-                                        </ListItem>
-                                    ))
+                                    .map((value, index) => {
+
+                                        const ruta = value.imagen.path
+
+                                        //windows
+                                        // const cortar = ruta.split('\\').slice(-1)[0]
+
+                                        //mac
+                                        const cortar = ruta.split('/').slice(-1)[0]
+
+                                        return (
+                                            <ListItem
+                                                secondaryAction={
+                                                    <IconButton edge="end" aria-label="delete" onClick={() => addContactFromService(index)}>
+                                                        <AddIcon />
+                                                    </IconButton>
+                                                }
+                                                key={index}
+                                            >
+                                                <Avatar alt={value?.nickname?.[0]} src={`http://localhost:8080/${cortar}`} sx={{ width: 56, height: 56 }} />
+                                                <ListItemText primary={value.nickname} />
+                                            </ListItem>
+                                        )
+                                    })
                             ) : (
                                 <p>No existe el Usuario</p>
                             )}

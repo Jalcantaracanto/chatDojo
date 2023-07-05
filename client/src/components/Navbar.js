@@ -109,7 +109,7 @@ export const Navbar = () => {
 
     useEffect(() => {
         getUserFromService()
-    }, [usuario])
+    }, [usuario, openUpdatePopup])
 
     return (
         <AppBar position="static" /* sx={{ backgroundColor: 'blue' }} */>

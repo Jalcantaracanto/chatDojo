@@ -7,7 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { deleteChat } from '../services/chat.service'
 
-export const Conversation = ({ data, currentUserId, online }) => {
+export const Conversation = ({ data, currentUserId, online, getChats}) => {
     const [userData, setUserData] = useState(null)
 
     const getUserData = () => {
@@ -31,6 +31,7 @@ export const Conversation = ({ data, currentUserId, online }) => {
         deleteChat(data._id)
         .then((response) => {
             console.log(response)
+            getChats()
         }
         )
         .catch((error) => {
@@ -43,13 +44,11 @@ export const Conversation = ({ data, currentUserId, online }) => {
             <Paper elevation={3} style={{ padding: '10px' }}>
                 <div className="follower conversation">
                     <div>
-                        <div /* className="online-dot" */ style={{ display: 'flex', justifyContent: 'space-beetween', alignContent: 'center' }} >
-                            {online && <div className="online-dot">Online</div>}
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
+                        <div /* className="online-dot" */ style={{ display: 'flex', justifyContent: 'space-beetween', alignContent: 'center', gap:'20px' }} >
+                            {/* {online && <div className="online-dot">Online</div>} */}                           
+                                <AccountCircle />                        
                             {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQX5BeToF0W5MHlThCJ7UAW5owfTqbJEYCfGG9h-nerA&s" className="followerImage" style={{ width: '50px', height: '50px' }} /> */}
-                            <div className="name" style={{ fontSize: '0.8rem' }}>
+                            <div className="name" style={{ fontSize: '1rem' }}>
                                 <span>{userData?.nickname} </span>
                                 <span style={{color: online?"#51e200":""}}>{online? "Online" : "Offline"}</span>                                
                             </div>

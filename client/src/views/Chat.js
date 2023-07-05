@@ -131,7 +131,7 @@ export const Chat = () => {
                                     <div className="Chat-list">
                                         {chats.map((chat, index) => (
                                             <div key={index} onClick={() => setCurrentChat(chat)}>
-                                                <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} />
+                                                <Conversation data={chat} currentUserId={usuario.id} online={checkOnlineStatus(chat)} getChats={getChats}/>
                                             </div>
                                         ))}
                                     </div>

@@ -8,6 +8,8 @@ import { SearchContact } from './components/SearchContact'
 import Profile from './views/Profile'
 
 function App() {
+
+  
     return (
         <div
       className="App"

@@ -96,15 +96,48 @@ module.exports.findUserByEmail = (req, res) => {
         .catch((err) => res.json({ message: 'Error al buscar usuario', error: err }))
 }
 
+// module.exports.addContact = (req, res) => {
+//     console.log(req.body)
+//     const contactId = req.body.contactos[req.body.contactos.length - 1]
+
+//     User.findOneAndUpdate({ _id: req.params.id, contactos: { $ne: req.body.contactos } }, { $push: { contactos: contactId } }, { new: true })
+//         .then((updatedUser) => {
+//             // Llama a createChat pasando los IDs
+//             Chat.create({ members: [req.params.id, contactId] })
+//                 .then((result) => {
+//                     res.status(200).json({ chat: result })
+//                 })
+//                 .catch((error) => {
+//                     console.error(error)
+//                     res.status(500).json({ error: error })
+//                 })
+//         })
+//         .catch((err) => res.json({ message: 'Error al actualizar usuario', error: err }))
+// }
+
 module.exports.addContact = (req, res) => {
     console.log(req.body)
-    User.findOneAndUpdate({ _id: req.params.id, contactos: { $ne: req.body.contactos } }, { $push: { contactos: req.body.contactos[0] } }, { new: true })
-        .then((updatedUser) => {
-            // Llama a createChat pasando los IDs
-            Chat.create({ members: [req.params.id, req.body.contactos[0]] })
+    const contactId = req.body.contactos[req.body.contactos.length - 1]
 
-                .then((result) => {
-                    res.status(200).json({ chat: result })
+    User.findOneAndUpdate({ _id: req.params.id, contactos: { $ne: req.body.contactos } }, { $push: { contactos: contactId } }, { new: true })
+        .then((updatedUser) => {
+            // Verificar si ya existe un chat con los mismos miembros
+            Chat.findOne({ members: { $all: [req.params.id, contactId] } })
+                .then((existingChat) => {
+                    if (existingChat) {
+                        // Ya existe un chat con los mismos miembros
+                        res.status(200).json({ chat: existingChat })
+                    } else {
+                        // No existe un chat, crear uno nuevo
+                        Chat.create({ members: [req.params.id, contactId] })
+                            .then((newChat) => {
+                                res.status(200).json({ chat: newChat })
+                            })
+                            .catch((error) => {
+                                console.error(error)
+                                res.status(500).json({ error: error })
+                            })
+                    }
                 })
                 .catch((error) => {
                     console.error(error)

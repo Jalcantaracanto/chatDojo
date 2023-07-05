@@ -87,9 +87,9 @@ export const Login = ({ checkTrue }) => {
             [name]: value,
         })
     }
-    console.log(user)
+    // console.log(user)
 
-    console.log(rememberMe)
+    // console.log(rememberMe)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -106,7 +106,7 @@ export const Login = ({ checkTrue }) => {
         setFormSuccess('Iniciando sesión...')
         login(user)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 const userToken = Cookies.get('usertoken')
                 if (userToken) {
                     const decodedToken = decodeURIComponent(escape(atob(userToken.split('.')[1])))

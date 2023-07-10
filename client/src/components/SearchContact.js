@@ -50,13 +50,13 @@ export const SearchContact = ({ closePopup, getChats }) => {
         getUsers()
             .then((response) => {
                 setUsers(response.data.users)
-               
+
             })
             .catch((error) => {
                 console.log(error)
             })
     }
-   
+
 
     useEffect(() => {
         getAllUsersFromService()
@@ -114,19 +114,19 @@ export const SearchContact = ({ closePopup, getChats }) => {
                         </Stack>
                     </Box>
                     <Demo>
-                    <List dense={dense}>
+                        <List dense={dense}>
                             {searchFilter.length > 0 ? (
                                 searchFilter
                                     .sort((a, b) => a.nickname.localeCompare(b.nickname)) // Ordena los elementos por el nickname
                                     .map((value, index) => {
 
-                                        const ruta = value.imagen.path
+                                        const ruta = value.imagen?.path;
 
                                         //windows
                                         // const cortar = ruta.split('\\').slice(-1)[0]
 
                                         //mac
-                                        const cortar = ruta.split('/').slice(-1)[0]
+                                        const cortar = ruta ? ruta.split('/').slice(-1)[0] : '';
 
                                         return (
                                             <ListItem
